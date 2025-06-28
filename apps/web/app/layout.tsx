@@ -1,5 +1,4 @@
 "use client";
-// TITO: Revisar si esto esta bien
 
 import { Geist, Geist_Mono } from "next/font/google";
 

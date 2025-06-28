@@ -15,9 +15,10 @@ import {
 } from "@workspace/ui/components/select";
 import { Button } from "@workspace/ui/components/button";
 import { Badge } from "@workspace/ui/components/badge";
-import { X, Filter } from "lucide-react";
+import { X, Filter, Search } from "lucide-react";
 
 interface Filters {
+  search: string;
   climate: string;
   terrain: string;
   population: string;
@@ -41,7 +42,7 @@ export function PlanetFilters({
 
   return (
     <Card className="mb-8 bg-slate-800/30 border-slate-700 backdrop-blur-sm w-full max-w-none">
-      <CardHeader className="pb-4">
+      <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
             <Filter className="h-5 w-5 text-[#637278]" />
@@ -62,6 +63,31 @@ export function PlanetFilters({
       </CardHeader>
 
       <CardContent className="px-8 py-6">
+        {/* Search Input */}
+        <div className="mb-6">
+          <label className="text-sm font-medium text-slate-300 mb-2 block">
+            Search
+          </label>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Search by name"
+              value={filters.search}
+              onChange={(e) => onFilterChange("search", e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-[#637278] focus:ring-1 focus:ring-[#637278] focus:outline-none transition-colors duration-200"
+            />
+            {filters.search && (
+              <button
+                onClick={() => onFilterChange("search", "")}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white transition-colors duration-200"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 w-full">
           {/* Climate Filter */}
           <div className="space-y-2 min-w-0 w-full">
@@ -173,10 +199,18 @@ export function PlanetFilters({
         {hasActiveFilters && (
           <div className="mt-4 pt-4 border-t border-slate-700">
             <div className="flex flex-wrap gap-2">
+              {filters.search && filters.search !== "" && (
+                <Badge
+                  variant="secondary"
+                  className="flex items-center gap-1 bg-purple-200 border-purple-500/30 text-purple-900 hover:bg-purple-300 hover:text-purple-900 hover:border-purple-500"
+                >
+                  Search: {filters.search}
+                </Badge>
+              )}
               {filters.climate && filters.climate !== "all" && (
                 <Badge
                   variant="secondary"
-                  className="flex items-center gap-1 bg-[#637278]/20 border-[#637278]/30 text-[#637278]"
+                  className="flex items-center gap-1 bg-purple-200 border-purple-500/30 text-purple-900 hover:bg-purple-300 hover:text-purple-900 hover:border-purple-500"
                 >
                   Climate: {filters.climate}
                   <X
@@ -188,7 +222,7 @@ export function PlanetFilters({
               {filters.terrain && filters.terrain !== "all" && (
                 <Badge
                   variant="secondary"
-                  className="flex items-center gap-1 bg-[#637278]/20 border-[#637278]/30 text-[#637278]"
+                  className="flex items-center gap-1 bg-purple-200 border-purple-500/30 text-purple-900 hover:bg-purple-300 hover:text-purple-900 hover:border-purple-500"
                 >
                   Terrain: {filters.terrain}
                   <X
@@ -200,7 +234,7 @@ export function PlanetFilters({
               {filters.population && filters.population !== "all" && (
                 <Badge
                   variant="secondary"
-                  className="flex items-center gap-1 bg-[#637278]/20 border-[#637278]/30 text-[#637278]"
+                  className="flex items-center gap-1 bg-purple-200 border-purple-500/30 text-purple-900 hover:bg-purple-300 hover:text-purple-900 hover:border-purple-500"
                 >
                   Population: {filters.population}
                   <X
@@ -212,7 +246,7 @@ export function PlanetFilters({
               {filters.diameter && filters.diameter !== "all" && (
                 <Badge
                   variant="secondary"
-                  className="flex items-center gap-1 bg-[#637278]/20 border-[#637278]/30 text-[#637278]"
+                  className="flex items-center gap-1 bg-purple-200 border-purple-500/30 text-purple-900 hover:bg-purple-300 hover:text-purple-900 hover:border-purple-500"
                 >
                   Diameter: {filters.diameter}
                   <X
