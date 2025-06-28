@@ -40,7 +40,7 @@ const data = {
   navMain: [
     {
       title: "Planets",
-      url: "/",
+      url: "/planets",
       icon: Globe,
       description: "Explore the worlds of Star Wars",
       isActive: true,

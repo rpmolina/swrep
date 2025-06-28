@@ -40,7 +40,7 @@ export function PlanetFilters({
   );
 
   return (
-    <Card className="mb-8 bg-slate-800/30 border-slate-700 backdrop-blur-sm">
+    <Card className="mb-8 bg-slate-800/30 border-slate-700 backdrop-blur-sm w-full max-w-none">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
@@ -61,10 +61,10 @@ export function PlanetFilters({
         </div>
       </CardHeader>
 
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <CardContent className="px-8 py-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 w-full">
           {/* Climate Filter */}
-          <div className="space-y-2">
+          <div className="space-y-2 min-w-0 w-full">
             <label className="text-sm font-medium text-slate-300">
               Climate
             </label>
@@ -72,7 +72,7 @@ export function PlanetFilters({
               value={filters.climate}
               onValueChange={(value) => onFilterChange("climate", value)}
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278]">
+              <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278] h-12 w-full px-4 mt-2">
                 <SelectValue placeholder="All climates" />
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-slate-600">
@@ -92,7 +92,7 @@ export function PlanetFilters({
           </div>
 
           {/* Terrain Filter */}
-          <div className="space-y-2">
+          <div className="space-y-2 min-w-0 w-full">
             <label className="text-sm font-medium text-slate-300">
               Terrain
             </label>
@@ -100,7 +100,7 @@ export function PlanetFilters({
               value={filters.terrain}
               onValueChange={(value) => onFilterChange("terrain", value)}
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278]">
+              <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278] h-12 w-full px-4  mt-2">
                 <SelectValue placeholder="All terrains" />
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-slate-600">
@@ -123,7 +123,7 @@ export function PlanetFilters({
           </div>
 
           {/* Population Filter */}
-          <div className="space-y-2">
+          <div className="space-y-2 min-w-0 w-full">
             <label className="text-sm font-medium text-slate-300">
               Population
             </label>
@@ -131,7 +131,7 @@ export function PlanetFilters({
               value={filters.population}
               onValueChange={(value) => onFilterChange("population", value)}
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278]">
+              <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278] h-12 w-full px-4  mt-2">
                 <SelectValue placeholder="All populations" />
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-slate-600">
@@ -145,7 +145,7 @@ export function PlanetFilters({
           </div>
 
           {/* Diameter Filter */}
-          <div className="space-y-2">
+          <div className="space-y-2 min-w-0 w-full">
             <label className="text-sm font-medium text-slate-300">
               Diameter
             </label>
@@ -153,7 +153,7 @@ export function PlanetFilters({
               value={filters.diameter}
               onValueChange={(value) => onFilterChange("diameter", value)}
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278]">
+              <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278] h-12 w-full px-4  mt-2">
                 <SelectValue placeholder="All sizes" />
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-slate-600">
@@ -181,7 +181,7 @@ export function PlanetFilters({
                   Climate: {filters.climate}
                   <X
                     className="h-3 w-3 cursor-pointer hover:text-white"
-                    onClick={() => console.log("clear climate")}
+                    onClick={() => onFilterChange("climate", "")}
                   />
                 </Badge>
               )}
