@@ -5,6 +5,7 @@ import { PlanetsModule } from './planets/planets.module';
 import { PeopleModule } from './people/people.module';
 import { ConfigModule } from '@nestjs/config';
 import { env } from './env';
+import { FiltersModule } from './filters/filters.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { env } from './env';
     }),
     PlanetsModule,
     PeopleModule,
+    FiltersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

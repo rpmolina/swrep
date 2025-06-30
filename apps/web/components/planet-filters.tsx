@@ -16,9 +16,9 @@ import {
 import { Button } from "@workspace/ui/components/button";
 import { Badge } from "@workspace/ui/components/badge";
 import { X, Filter, Search } from "lucide-react";
+import { FilterConfig, FilterRange, FilterString } from "@/app/planets/types";
 
 interface Filters {
-  search: string;
   climate: string;
   terrain: string;
   population: string;
@@ -27,14 +27,20 @@ interface Filters {
 
 interface PlanetFiltersProps {
   filters: Filters;
+  filterConfig: FilterConfig;
+  search: string;
+  setSearch: (search: string) => void;
   onFilterChange: (filterType: keyof Filters, value: string) => void;
   onClearFilters: () => void;
 }
 
 export function PlanetFilters({
   filters,
+  search,
+  setSearch,
   onFilterChange,
   onClearFilters,
+  filterConfig,
 }: PlanetFiltersProps) {
   const hasActiveFilters = Object.values(filters).some(
     (filter) => filter !== ""
@@ -73,13 +79,13 @@ export function PlanetFilters({
             <input
               type="text"
               placeholder="Search by name"
-              value={filters.search}
-              onChange={(e) => onFilterChange("search", e.target.value)}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-[#637278] focus:ring-1 focus:ring-[#637278] focus:outline-none transition-colors duration-200"
             />
-            {filters.search && (
+            {search && (
               <button
-                onClick={() => onFilterChange("search", "")}
+                onClick={() => setSearch("")}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white transition-colors duration-200"
               >
                 <X className="h-4 w-4" />
@@ -89,8 +95,54 @@ export function PlanetFilters({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 w-full">
+          {Object.entries(filterConfig).map(([key, value]) => (
+            <div key={key} className="space-y-2 min-w-0 w-full">
+              <label className="text-sm font-medium text-slate-300">
+                {key}
+              </label>
+              {value.type === "string" && (
+                <Select
+                  value={filters[key as keyof Filters]}
+                  onValueChange={(value) =>
+                    onFilterChange(key as keyof Filters, value)
+                  }
+                >
+                  <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278] h-12 w-full px-4 mt-2">
+                    <SelectValue placeholder="All" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-slate-800 border-slate-600">
+                    {value.values.map((item: string) => (
+                      <SelectItem key={item} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+              {value.type === "range" && (
+                <Select
+                  value={filters[key as keyof Filters]}
+                  onValueChange={(value) =>
+                    onFilterChange(key as keyof Filters, value)
+                  }
+                >
+                  <SelectTrigger className="bg-slate-700 border-slate-600 text-white focus:border-[#637278] h-12 w-full px-4 mt-2">
+                    <SelectValue placeholder="All" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-slate-800 border-slate-600">
+                    {value.values.map((item: FilterRange["values"][number]) => (
+                      <SelectItem key={item.name} value={item.name}>
+                        {item.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            </div>
+          ))}
+
           {/* Climate Filter */}
-          <div className="space-y-2 min-w-0 w-full">
+          {/* <div className="space-y-2 min-w-0 w-full">
             <label className="text-sm font-medium text-slate-300">
               Climate
             </label>
@@ -115,10 +167,10 @@ export function PlanetFilters({
                 <SelectItem value="unknown">Unknown</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
           {/* Terrain Filter */}
-          <div className="space-y-2 min-w-0 w-full">
+          {/* <div className="space-y-2 min-w-0 w-full">
             <label className="text-sm font-medium text-slate-300">
               Terrain
             </label>
@@ -146,10 +198,10 @@ export function PlanetFilters({
                 <SelectItem value="cityscape">Cityscape</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
           {/* Population Filter */}
-          <div className="space-y-2 min-w-0 w-full">
+          {/* <div className="space-y-2 min-w-0 w-full">
             <label className="text-sm font-medium text-slate-300">
               Population
             </label>
@@ -168,10 +220,10 @@ export function PlanetFilters({
                 <SelectItem value="unknown">Unknown</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
           {/* Diameter Filter */}
-          <div className="space-y-2 min-w-0 w-full">
+          {/* <div className="space-y-2 min-w-0 w-full">
             <label className="text-sm font-medium text-slate-300">
               Diameter
             </label>
@@ -192,7 +244,7 @@ export function PlanetFilters({
                 <SelectItem value="unknown">Unknown</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
         </div>
 
         {/* Active Filters Display */}

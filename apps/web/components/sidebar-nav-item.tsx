@@ -8,7 +8,6 @@ import {
   SidebarMenuItem,
 } from "@workspace/ui/components/sidebar";
 
-// Tipos para el componente
 interface SidebarNavItemProps {
   title: string;
   description: string;

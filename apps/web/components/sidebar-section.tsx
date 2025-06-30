@@ -9,20 +9,18 @@ import {
 } from "@workspace/ui/components/sidebar";
 import { SidebarNavItem } from "./sidebar-nav-item";
 
-// Tipos para el item de navegación
-interface NavigationItem {
+type NavigationItem = {
   title: string;
   description: string;
   url: string;
   icon: React.ComponentType<{ className?: string }>;
-}
+};
 
-// Props del componente SidebarSection
-interface SidebarSectionProps {
+type SidebarSectionProps = {
   title: string;
   items: NavigationItem[];
   pathname?: string;
-}
+};
 
 export function SidebarSection({
   title,

@@ -5,17 +5,22 @@ import { PlanetCard } from "@/components/planet-card";
 import { Badge } from "@workspace/ui/components/badge";
 import { PlanetFilters } from "@/components/planet-filters";
 import filterPlanets from "./utils/filterStrategies";
-import { Planet, Filters } from "./types";
+import { Planet, Filters, FilterConfig } from "./types";
 
 type PlanetContentProps = {
   initialPlanets: Planet[];
+  filterConfig: FilterConfig;
 };
 
-export function PlanetContent({ initialPlanets }: PlanetContentProps) {
+export function PlanetContent({
+  initialPlanets,
+  filterConfig,
+}: PlanetContentProps) {
   const [filteredPlanets, setFilteredPlanets] =
     useState<Planet[]>(initialPlanets);
+
+  const [search, setSearch] = useState<string>("");
   const [filters, setFilters] = useState<Filters>({
-    search: "",
     climate: "",
     terrain: "",
     population: "",
@@ -23,8 +28,18 @@ export function PlanetContent({ initialPlanets }: PlanetContentProps) {
   });
 
   useEffect(() => {
-    setFilteredPlanets(filterPlanets(filters, initialPlanets));
-  }, [initialPlanets, filters]);
+    const filteredPlanets = filterPlanets(
+      filterConfig,
+      filters,
+      initialPlanets
+    );
+    const filteredSearch = filteredPlanets.filter((planet) => {
+      const name = planet.name.toLowerCase();
+      const searchLower = search.toLowerCase();
+      return name.includes(searchLower);
+    });
+    setFilteredPlanets(filteredSearch);
+  }, [initialPlanets, filterConfig, filters, search]);
 
   const handleFilterChange = (filterType: keyof Filters, value: string) => {
     const newValue = value === "all" ? "" : value;
@@ -37,7 +52,6 @@ export function PlanetContent({ initialPlanets }: PlanetContentProps) {
 
   const clearFilters = () => {
     setFilters({
-      search: "",
       climate: "",
       terrain: "",
       population: "",
@@ -49,6 +63,9 @@ export function PlanetContent({ initialPlanets }: PlanetContentProps) {
     <>
       {/* Filters */}
       <PlanetFilters
+        filterConfig={filterConfig}
+        search={search}
+        setSearch={setSearch}
         filters={filters}
         onFilterChange={handleFilterChange}
         onClearFilters={clearFilters}

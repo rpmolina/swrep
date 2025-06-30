@@ -27,11 +27,19 @@ async function fetchPlanets(): Promise<PlanetFetchResponse> {
   }
 }
 
-export default async function PlanetsPage() {
-  const response = await fetchPlanets();
+async function fetchFilters() {
+  const response = await fetch("http://localhost:3001/filters/planets", {
+    next: { revalidate: 3600 },
+  });
+  return response.json();
+}
 
-  const isError = response.error;
-  const isEmpty = response.planets.length === 0;
+export default async function PlanetsPage() {
+  const planetsResponse = await fetchPlanets();
+  const filtersResponse = await fetchFilters();
+
+  const isError = planetsResponse.error;
+  const isEmpty = planetsResponse.planets.length === 0;
   const showContent = !isError && !isEmpty;
 
   return (
@@ -40,7 +48,12 @@ export default async function PlanetsPage() {
         <Header />
         {isError && <ErrorState />}
         {isEmpty && <EmptyState />}
-        {showContent && <PlanetContent initialPlanets={response.planets} />}
+        {showContent && (
+          <PlanetContent
+            initialPlanets={planetsResponse.planets}
+            filterConfig={filtersResponse}
+          />
+        )}
       </div>
     </div>
   );
