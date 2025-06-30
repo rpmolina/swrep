@@ -9,7 +9,7 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@workspace/ui/components/sidebar";
-import { navigationConfig } from "@/hooks/navigation-config";
+import { navigationConfig } from "@/lib/navigation-config";
 import { SidebarSection } from "./sidebar-section";
 import { AppSidebarHeader } from "./sidebar-header";
 import { AppSidebarFooter } from "./sidebar-footer";

@@ -9,6 +9,7 @@ export type FilterRange = {
 export type FilterString = {
   type: 'string';
   values: string[];
+  strict?: boolean;
 };
 
 export type FilterConfig = FilterRange | FilterString;

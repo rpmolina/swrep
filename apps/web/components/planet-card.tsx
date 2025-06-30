@@ -16,29 +16,16 @@ import {
   Mountain,
   Droplets,
 } from "lucide-react";
+import { Planet } from "@/types/types";
 
-interface Planet {
-  name: string;
-  rotation_period: string;
-  orbital_period: string;
-  diameter: string;
-  climate: string;
-  gravity: string;
-  terrain: string;
-  surface_water: string;
-  population: string;
-  residents: string[];
-  films: string[];
-}
-
-interface PlanetCardProps {
+type PlanetCardProps = {
   planet: Planet;
   index: number;
-}
+};
 
 export function PlanetCard({ planet, index }: PlanetCardProps) {
   const formatNumber = (value: string) => {
-    if (value === "unknown") return "Desconocido";
+    if (value === "unknown") return "Unknown";
     const num = Number.parseInt(value);
     if (isNaN(num)) return value;
     return num.toLocaleString();
@@ -92,7 +79,7 @@ export function PlanetCard({ planet, index }: PlanetCardProps) {
         {/* Climate */}
         <div className="flex items-center gap-2">
           <Thermometer className="h-4 w-4 text-slate-400" />
-          <span className="text-sm text-slate-300">Clima:</span>
+          <span className="text-sm text-slate-300">Climate:</span>
           <Badge
             className={`${getClimateColor(planet.climate)} text-white text-xs`}
           >

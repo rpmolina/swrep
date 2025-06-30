@@ -60,6 +60,7 @@ export const peopleFilters: Record<string, FilterConfig> = {
   },
   gender: {
     type: 'string',
+    strict: true,
     values: ['female', 'hermaphrodite', 'male', 'n/a', 'none'],
   },
 };

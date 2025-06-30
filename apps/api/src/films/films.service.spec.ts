@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PeopleService } from './people.service';
+import { FilmsService } from './films.service';
 import { SwapiService } from 'src/swapi/swapi.service';
 import { SwapiResourceEnum } from 'src/swapi/types';
 
-describe('PeopleService', () => {
-  let peopleService: PeopleService;
+describe('FilmsService', () => {
+  let filmsService: FilmsService;
   let swapiService: SwapiService;
 
   const mockSwapiService = {
@@ -15,7 +15,7 @@ describe('PeopleService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        PeopleService,
+        FilmsService,
         {
           provide: SwapiService,
           useValue: mockSwapiService,
@@ -23,19 +23,19 @@ describe('PeopleService', () => {
       ],
     }).compile();
 
-    peopleService = module.get<PeopleService>(PeopleService);
+    filmsService = module.get<FilmsService>(FilmsService);
     swapiService = module.get<SwapiService>(SwapiService);
   });
 
-  it('should call swapiService.findAll with PEOPLE', async () => {
+  it('should call swapiService.findAll with FILMS', async () => {
     const findAllSpy = jest.spyOn(swapiService, 'findAll');
-    await peopleService.findAll();
-    expect(findAllSpy).toHaveBeenCalledWith(SwapiResourceEnum.PEOPLE);
+    await filmsService.findAll();
+    expect(findAllSpy).toHaveBeenCalledWith(SwapiResourceEnum.FILMS);
   });
 
-  it('should call swapiService.findOne with PEOPLE and id', async () => {
+  it('should call swapiService.findOne with FILMS and id', async () => {
     const findOneSpy = jest.spyOn(swapiService, 'findOne');
-    await peopleService.findOne('1');
-    expect(findOneSpy).toHaveBeenCalledWith(SwapiResourceEnum.PEOPLE, '1');
+    await filmsService.findOne('1');
+    expect(findOneSpy).toHaveBeenCalledWith(SwapiResourceEnum.FILMS, '1');
   });
 });

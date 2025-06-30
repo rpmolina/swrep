@@ -1,5 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags, ApiOkResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOkResponse,
+  ApiNotFoundResponse,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { PersonDto } from 'src/swapi/dto/person.dto';
 import { PeopleService } from './people.service';
 
@@ -13,8 +18,13 @@ export class PeopleController {
     description: 'List of people from SWAPI',
     type: [PersonDto],
   })
-  async findAll() {
-    return this.peopleService.findAll();
+  @ApiQuery({
+    name: 'fields',
+    required: false,
+    description: 'return only the fields specified',
+  })
+  async findAll(@Query('fields') fields?: string) {
+    return this.peopleService.findAll(fields);
   }
 
   @Get(':id')

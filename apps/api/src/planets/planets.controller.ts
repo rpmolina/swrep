@@ -1,5 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags, ApiOkResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOkResponse,
+  ApiNotFoundResponse,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { PlanetsService } from './planets.service';
 import { PlanetDto } from 'src/swapi/dto/planet.dto';
 
@@ -13,8 +18,13 @@ export class PlanetsController {
     description: 'List of planets from SWAPI',
     type: [PlanetDto],
   })
-  async findAll() {
-    return this.planetsService.findAll();
+  @ApiQuery({
+    name: 'fields',
+    required: false,
+    description: 'return only the fields specified',
+  })
+  async findAll(@Query('fields') fields?: string) {
+    return this.planetsService.findAll(fields);
   }
 
   @Get(':id')

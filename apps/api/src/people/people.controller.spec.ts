@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PlanetsController } from './people.controller';
-import { PlanetsService } from './people.service';
+import { PeopleController } from './people.controller';
+import { PeopleService } from './people.service';
 
-describe('PlanetsController', () => {
-  let controller: PlanetsController;
+describe('PeopleController', () => {
+  let controller: PeopleController;
 
-  const mockPlanetsService = {
+  const mockPeopleService = {
     findAll: jest.fn(),
     findOne: jest.fn(),
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [PlanetsController],
-      providers: [{ provide: PlanetsService, useValue: mockPlanetsService }],
+      controllers: [PeopleController],
+      providers: [{ provide: PeopleService, useValue: mockPeopleService }],
     }).compile();
 
-    controller = module.get<PlanetsController>(PlanetsController);
+    controller = module.get<PeopleController>(PeopleController);
   });
 
   it('should be defined', () => {
