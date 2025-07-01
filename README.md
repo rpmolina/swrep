@@ -1,6 +1,44 @@
-# shadcn/ui monorepo template
+# swrep
 
-This template is for creating a monorepo with shadcn/ui.
+## Stack
+
+- Turborepo
+- Next.js
+- Tailwind CSS
+- Shadcn/UI
+- TypeScript
+- Nest.js
+- Jest
+
+## Architecture
+This monorepo is organized into the following directories:
+
+```
+├── apps
+│   ├── api                         # Nest.js api
+│   └── web                         # Next.js web app
+└── packages
+    ├── eslint-config                # ESLint config
+    ├── typescript-config            # TypeScript config
+    └── ui                          # Shadcn/UI components 
+```
+
+## Node Version
+- v22.14.0
+
+## Installation
+```bash
+pnpm install
+```
+
+## Environment Variables
+You need to create a `.env` file in the root of each app. you can use the `.env.example` file as a reference.
+
+## Usage
+
+```bash
+pnpm dev
+```
 
 ## Usage
 
