@@ -26,7 +26,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <AppSidebar />
       <div className={"flex-1 flex flex-col transition-all duration-300"}>
         {isMobile && <MobileHeader onMenuClick={toggleSidebar} />}
-        <main className="flex-1 overflow-auto">{children}</main>
+        <main className="flex-1 overflow-auto">
+          <div className="bg-gradient-to-br from-slate-900 via-[#637278] to-slate-900 min-h-screen">
+            <div className="container mx-auto px-4 py-8">{children}</div>
+          </div>
+        </main>
       </div>
     </>
   );

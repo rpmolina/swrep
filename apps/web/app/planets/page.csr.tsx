@@ -5,6 +5,8 @@ import ResourceView from "@/components/resource-view";
 import { filterPlanets } from "@/lib/filterStrategies";
 import { PlanetFilters } from "@/types/types";
 import { PlanetCard } from "@/components/planet-card";
+import Link from "next/link";
+import { extractId } from "@/lib/extract-id";
 
 type PlanetContentViewProps = {
   initialResources: Planet[];
@@ -38,7 +40,9 @@ export default function PlanetContentView({
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
             {filteredPlanets.map((planet, index) => (
-              <PlanetCard key={planet.url} planet={planet} index={index} />
+              <Link href={`/planets/${extractId(planet.url)}`} key={planet.url}>
+                <PlanetCard planet={planet} index={index} />
+              </Link>
             ))}
           </div>
         );
