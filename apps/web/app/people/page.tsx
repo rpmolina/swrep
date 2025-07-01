@@ -6,6 +6,8 @@ import {
   fetchPlanets,
   fetchSpecies,
 } from "@/services/services";
+import { buildStructuredData } from "./build-structured-data";
+import Script from "next/script";
 
 export default async function PlanetsPage() {
   const people = await fetchPeople();
@@ -25,6 +27,25 @@ export default async function PlanetsPage() {
         planets={planets}
         species={species}
       />
+      <Script
+        id="jsonld-people"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildStructuredData(people)),
+        }}
+      />
     </div>
   );
 }
+
+export const metadata = {
+  title: "Characters | SWAPI Explorer",
+  description:
+    "Explore the Star Wars galaxy and discover detailed information about each person, including name, gender, and birth year.",
+  keywords: ["star wars", "people", "swapi", "galaxy"],
+  openGraph: {
+    title: "Star Wars Characters | SWAPI Explorer",
+    description:
+      "Explore and learn about characters in the Star Wars universe.",
+  },
+};

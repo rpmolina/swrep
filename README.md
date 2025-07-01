@@ -9,6 +9,7 @@
 - TypeScript
 - Nest.js
 - Jest
+- Swagger Docs
 
 ## Architecture
 This monorepo is organized into the following directories:
