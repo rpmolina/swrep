@@ -1,5 +1,4 @@
 import { Header } from "@/components/header";
-import { EmptyState } from "@/components/empty-state";
 import StarshipContentView from "./page.csr";
 import { fetchStarships, fetchStarshipsFilters } from "@/services/services";
 

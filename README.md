@@ -40,11 +40,20 @@ You need to create a `.env` file in the root of each app. you can use the `.env.
 pnpm dev
 ```
 
-## Usage
+## Building locally
+If you want to build the web app locally, you need to run the api locally.
 
 ```bash
-pnpm dlx shadcn@latest init
+cd apps/api && pnpm dev
 ```
+
+then you can run the web app's build locally.
+
+```bash
+cd apps/web && pnpm build
+```
+
+
 
 ## Adding components
 

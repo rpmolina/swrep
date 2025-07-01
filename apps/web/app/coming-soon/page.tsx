@@ -9,8 +9,17 @@ import {
 } from "@workspace/ui/components/card";
 import { Separator } from "@workspace/ui/components/separator";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 export default function ComingSoonPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ComingSoon />
+    </Suspense>
+  );
+}
+
+function ComingSoon() {
   const searchParams = useSearchParams();
   const from = searchParams.get("from") || "/coming-soon";
 
