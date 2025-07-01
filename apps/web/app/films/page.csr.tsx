@@ -4,6 +4,8 @@ import { Film, FilmFilters, FilterConfig } from "@/types/types";
 import ResourceView from "@/components/resource-view";
 import { filterFilms } from "@/lib/filterStrategies";
 import { FilmCard } from "@/components/film-card";
+import Link from "next/link";
+import { extractId } from "@/lib/extract-id";
 
 type PlanetContentViewProps = {
   initialResources: Film[];
@@ -36,7 +38,13 @@ export default function FilmsContentView({
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
             {filteredFilms.map((film, index) => (
-              <FilmCard key={film.url} film={film} index={index} />
+              <Link
+                href={`/films/${extractId(film.url)}`}
+                key={film.url}
+                className="w-full"
+              >
+                <FilmCard film={film} index={index} />
+              </Link>
             ))}
           </div>
         );

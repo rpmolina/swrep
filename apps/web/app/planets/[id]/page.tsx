@@ -14,9 +14,9 @@ import { ResidentsAndFilms } from "./components/ResidentsAndFilms";
 import PlanetDetailHeader from "./components/planet-detail-header";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export async function generateStaticParams() {
@@ -31,9 +31,8 @@ export async function generateStaticParams() {
   });
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const planet = await fetchPlanetById(params.id);
 
   if (!planet) {
@@ -54,7 +53,8 @@ export async function generateMetadata({
 }
 
 // Main component (server)
-export default async function PlanetDetailPage({ params }: PageProps) {
+export default async function PlanetDetailPage(props: PageProps) {
+  const params = await props.params;
   const planet = await fetchPlanetById(params.id);
   const people = await fetchPeople({ fields: "name,url" });
   const films = await fetchFilms({ fields: "title,url" });

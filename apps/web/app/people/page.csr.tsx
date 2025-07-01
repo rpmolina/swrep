@@ -10,6 +10,8 @@ import {
 import ResourceView from "@/components/resource-view";
 import { filterPeople } from "@/lib/filterStrategies";
 import { PersonCard } from "@/components/person-card";
+import Link from "next/link";
+import { extractId } from "@/lib/extract-id";
 
 type PeopleContentViewProps = {
   initialResources: Person[];
@@ -47,13 +49,19 @@ export default function PeopleContentView({
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
             {filteredPeople.map((person, index) => (
-              <PersonCard
+              <Link
+                href={`/coming-soon?from=/people/${extractId(person.url)}`}
                 key={person.url}
-                person={person}
-                index={index}
-                planets={planets}
-                species={species}
-              />
+                className="w-full"
+              >
+                <PersonCard
+                  key={person.url}
+                  person={person}
+                  index={index}
+                  planets={planets}
+                  species={species}
+                />
+              </Link>
             ))}
           </div>
         );

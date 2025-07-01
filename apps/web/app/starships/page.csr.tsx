@@ -5,6 +5,8 @@ import ResourceView from "@/components/resource-view";
 import { filterStarships } from "@/lib/filterStrategies";
 import { StarshipFilters } from "@/types/types";
 import { StarshipCard } from "@/components/starship-card";
+import Link from "next/link";
+import { extractId } from "@/lib/extract-id";
 
 type StarshipContentViewProps = {
   initialResources: Starship[];
@@ -38,11 +40,17 @@ export default function StarshipContentView({
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
             {filteredStarships.map((starship, index) => (
-              <StarshipCard
+              <Link
+                href={`/coming-soon?from=/starships/${extractId(starship.url)}`}
                 key={starship.url}
-                starship={starship}
-                index={index}
-              />
+                className="w-full"
+              >
+                <StarshipCard
+                  key={starship.url}
+                  starship={starship}
+                  index={index}
+                />
+              </Link>
             ))}
           </div>
         );
