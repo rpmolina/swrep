@@ -44,7 +44,7 @@ export const navigationConfig = {
     },
     {
       title: "repo",
-      url: "https://github.com/rpmolina/swarep",
+      url: "https://github.com/rpmolina/swrep",
       icon: Github,
       description: "View on GitHub",
     },

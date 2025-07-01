@@ -1,4 +1,4 @@
-# swrep
+# swrep 🌌🚀
 
 ## Stack
 
@@ -33,7 +33,8 @@ pnpm install
 ```
 
 ## Environment Variables
-You need to create a `.env` file in the root of each app. you can use the `.env.example` file as a reference.
+You need to create a `.env` file in the root of each app. 
+you can use the `.env.example` file as a reference.
 
 ## Usage
 
@@ -42,7 +43,8 @@ pnpm dev
 ```
 
 ## Building locally
-If you want to build the web app locally, you need to run the api locally.
+If you want to build the web app locally, you need to run the api locally first.
+Due to the apps/web needs to fetch data from the api to create static pages.
 
 ```bash
 cd apps/api && pnpm dev
